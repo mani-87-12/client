@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword, setAuthError, clearAuthError } from '../../store/authSlice';
 import { auth, googleProvider, githubProvider, facebookProvider, signInWithPopup } from '../../firebaseConfig';
+import { AiFillGoogleCircle } from 'react-icons/ai'; // Google icon
+import { AiFillGithub } from 'react-icons/ai'; // GitHub icon
+import { FaFacebookF } from 'react-icons/fa'; // Facebook icon
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+    <div className="max-w-md mx-auto p-6 bg-pink shadow-md rounded-lg">
       <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
 
       {authError && (
@@ -92,27 +95,34 @@ const LoginForm = () => {
         </button>
       </form>
 
-      {/* Social login buttons */}
+      {/* Social login buttons with only icons */}
       <div className="mt-6 text-center">
         <p className="mb-4">Or sign in with:</p>
-        <button
-          onClick={() => handleSocialLogin(googleProvider)}
-          className="bg-red-500 text-white py-2 px-4 rounded-lg w-full mb-2 hover:bg-red-600"
-        >
-          Sign in with Google
-        </button>
-        <button
-          onClick={() => handleSocialLogin(githubProvider)}
-          className="bg-gray-800 text-white py-2 px-4 rounded-lg w-full mb-2 hover:bg-gray-900"
-        >
-          Sign in with GitHub
-        </button>
-        <button
-          onClick={() => handleSocialLogin(facebookProvider)}
-          className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full hover:bg-blue-600"
-        >
-          Sign in with Facebook
-        </button>
+        <div className="flex justify-center space-x-4">
+          {/* Google Login Button */}
+          <button
+            onClick={() => handleSocialLogin(googleProvider)}
+            className="flex items-center justify-center bg-red-500 text-white rounded-full w-12 h-12 hover:bg-red-600"
+          >
+            <AiFillGoogleCircle className="text-3xl" />
+          </button>
+          
+          {/* GitHub Login Button */}
+          <button
+            onClick={() => handleSocialLogin(githubProvider)}
+            className="flex items-center justify-center bg-gray-800 text-white rounded-full w-12 h-12 hover:bg-gray-900"
+          >
+            <AiFillGithub className="text-3xl" />
+          </button>
+          
+          {/* Facebook Login Button */}
+          <button
+            onClick={() => handleSocialLogin(facebookProvider)}
+            className="flex items-center justify-center bg-blue-500 text-white rounded-full w-12 h-12 hover:bg-blue-600"
+          >
+            <FaFacebookF className="text-3xl" />
+          </button>
+        </div>
       </div>
     </div>
   );

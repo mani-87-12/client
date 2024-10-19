@@ -32,7 +32,7 @@ const SearchBar = () => {
         />
         <button 
           type="submit" 
-          className="bg-blue-500 text-white px-4 rounded-r-md hover:bg-blue-600"
+          className="bg-[#433878] text-white px-4 rounded-r-md hover:bg-[#7E60BF]"
         >
           Search
         </button>

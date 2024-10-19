@@ -11,6 +11,7 @@ import EditPost from './components/posts/editPost';
 import NotificationList from './components/notifications/notifications';
 import Search from './pages/search';
 import Home from './pages/home'; // Make sure you import the Home component
+import SetProfile from './components/Auth/setProfile'; // Import the SetProfile component
 
 const App = () => {
   // Since you don't have a backend yet, this can be a mock user ID
@@ -23,10 +24,12 @@ const App = () => {
           <Routes>
             {/* Auth routes (Login/Register) */}
             <Route path="/" element={<Auth />} />
+            <Route path="/setprofile" element={<SetProfile />} /> {/* New SetProfile route */}
 
             {/* Profile routes */}
             <Route path="/profile" element={<UserProfile userId={userId} />} />
             <Route path="/profile/edit" element={<EditProfile />} />
+            
 
             {/* Post routes */}
             <Route path="/posts" element={<PostList />} />

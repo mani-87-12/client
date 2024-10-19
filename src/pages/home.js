@@ -1,21 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/search/searchBar';
 import NotificationList from '../components/notifications/notifications';
-import UserProfile from '../components/profile/userProfile';
+import LogoutButton from '../components/Auth/logoutButton';
 
 const Home = () => {
   const { posts } = useSelector((state) => state.post);
   const { username } = useSelector((state) => state.auth);
-  const [profileVisible, setProfileVisible] = useState(false);
   const [notificationsVisible, setNotificationsVisible] = useState(false);
-
-  // Mock userId for demo purposes
-  const userId = 'mockUserId123';
-
-  const toggleProfileVisibility = () => {
-    setProfileVisible(!profileVisible);
-  };
+  const navigate = useNavigate(); // Highlighted: Imported useNavigate
+  const userId = 'mockUserId123'; // Mock userId for demo purposes
 
   const toggleNotificationsVisibility = () => {
     setNotificationsVisible(!notificationsVisible);
@@ -23,26 +18,24 @@ const Home = () => {
 
   // Close notifications dropdown when clicking outside
   const notificationsRef = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
         setNotificationsVisible(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="bg-[#E4B1F0] min-h-screen p-4">
       {/* Top Bar */}
       <div className="flex items-center justify-center mb-4 space-x-4">
         {/* Profile Button */}
         <button
-          onClick={toggleProfileVisibility}
           className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-gray-300"
+          onClick={() => navigate('/profile')} // Highlighted: Added onClick event
         >
           <img
             src="https://via.placeholder.com/50" // Placeholder for profile picture
@@ -50,12 +43,10 @@ const Home = () => {
             className="w-full h-full object-cover"
           />
         </button>
-
         {/* Search Bar */}
         <div className="flex-grow max-w-lg">
           <SearchBar />
         </div>
-
         {/* Notifications Button */}
         <button
           onClick={toggleNotificationsVisibility}
@@ -67,7 +58,8 @@ const Home = () => {
             className="w-full h-full object-cover"
           />
         </button>
-
+        {/* Log Out Button */}
+        <LogoutButton />
         {/* Notifications Dropdown */}
         {notificationsVisible && (
           <div
@@ -78,7 +70,6 @@ const Home = () => {
           </div>
         )}
       </div>
-
       {/* Feed of Posts */}
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">Feed</h2>
@@ -106,9 +97,6 @@ const Home = () => {
           )}
         </div>
       </div>
-
-      {/* User Profile Display */}
-      {profileVisible && <UserProfile userId={userId} />}
     </div>
   );
 };
